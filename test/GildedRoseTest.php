@@ -124,18 +124,18 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(10, $item->quality);
+        $this->assertSame(80, $item->quality);
         $this->assertSame(5, $item->sellIn);
     }
 
     public function testItUpdatesSulfurasItemsOnTheSellDate()
     {
-        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
+        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 0);
 
         $item->tick();
 
-        $this->assertSame(10, $item->quality);
-        $this->assertSame(5, $item->sellIn);
+        $this->assertSame(80, $item->quality);
+        $this->assertSame(0, $item->sellIn);
     }
 
     public function testItUpdatesSulfurasItemsAfterTheSellDate()
@@ -144,8 +144,15 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(10, $item->quality);
+        $this->assertSame(80, $item->quality);
         $this->assertSame(-1, $item->sellIn);
+    }
+
+    public function testItAlwaysReportsSulfurasQualityCorrectly()
+    {
+        $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
+
+        $this->assertSame(80, $item->quality);
     }
 
     public function testItUpdatesBackstagePassItemsLongBeforeTheSellDate()

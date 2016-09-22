@@ -12,12 +12,17 @@ class GildedRose
 
     public function __construct($name, $quality, $sellIn)
     {
+        if ($name == 'Sulfuras, Hand of Ragnaros') {
+            $quality = 80;
+        }
+
         $this->name = $name;
         $this->quality = $quality;
         $this->sellIn = $sellIn;
     }
 
-    public static function of($name, $quality, $sellIn) {
+    public static function of($name, $quality, $sellIn)
+    {
         return new static($name, $quality, $sellIn);
     }
 
