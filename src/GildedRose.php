@@ -10,7 +10,7 @@ class GildedRose
 
     public $sellIn;
 
-    public function __construct($name, $quality, $sellIn)
+    public function __construct(string $name, int $quality, int $sellIn)
     {
         if ($name == 'Sulfuras, Hand of Ragnaros') {
             $quality = 80;
@@ -21,7 +21,7 @@ class GildedRose
         $this->sellIn = $sellIn;
     }
 
-    public static function of($name, $quality, $sellIn)
+    public static function of(string $name, int $quality, int $sellIn) : GildedRose
     {
         return new static($name, $quality, $sellIn);
     }
