@@ -2,8 +2,6 @@
 
 ## Setup
 
-This repository includes the initial setup for this Kata, including the specs. It uses the [Kahlan library](http://kahlan.readthedocs.org/en/latest/), which you might not be familiar with. But, don't worry, there's nothing really to learn. Review the specs, and you'll understand the basic syntax in less than a minute.
-
 Your job is to:
 
 1. Refactor the monstrous code in the `GildedRose.php` class.
