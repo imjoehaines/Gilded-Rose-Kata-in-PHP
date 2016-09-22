@@ -2,7 +2,7 @@
 
 namespace App;
 
-class GildedRose
+class GildedRose implements Item
 {
     public $name;
 
@@ -10,18 +10,13 @@ class GildedRose
 
     public $sellIn;
 
-    private function __construct(string $name, int $quality, int $sellIn)
+    public function __construct(int $quality, int $sellIn)
     {
-        if ($name == 'Sulfuras, Hand of Ragnaros') {
-            $quality = 80;
-        }
-
-        $this->name = $name;
         $this->quality = $quality;
         $this->sellIn = $sellIn;
     }
 
-    public static function of(string $name, int $quality, int $sellIn)
+    public static function of(string $name, int $quality, int $sellIn) : Item
     {
         $itemLookup = [
             'normal' => Normal::class,
@@ -35,7 +30,14 @@ class GildedRose
             return new $itemLookup[$name]($quality, $sellIn);
         }
 
-        return new static($name, $quality, $sellIn);
+        if ($name == 'Sulfuras, Hand of Ragnaros') {
+            $quality = 80;
+        }
+
+        $item = new static($quality, $sellIn);
+        $item->name = $name;
+
+        return $item;
     }
 
     public function tick()
