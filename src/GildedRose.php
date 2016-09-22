@@ -10,7 +10,7 @@ class GildedRose
 
     public $sellIn;
 
-    public function __construct(string $name, int $quality, int $sellIn)
+    private function __construct(string $name, int $quality, int $sellIn)
     {
         if ($name == 'Sulfuras, Hand of Ragnaros') {
             $quality = 80;
@@ -21,8 +21,20 @@ class GildedRose
         $this->sellIn = $sellIn;
     }
 
-    public static function of(string $name, int $quality, int $sellIn) : GildedRose
+    public static function of(string $name, int $quality, int $sellIn)
     {
+        $itemLookup = [
+            'normal' => Normal::class,
+            'Aged Brie' => AgedBrie::class,
+            'Sulfuras, Hand of Ragnaros',
+            'Backstage passes to a TAFKAL80ETC concert',
+            'Conjured Mana Cake',
+        ];
+
+        if (isset($itemLookup[$name])) {
+            return new $itemLookup[$name]($quality, $sellIn);
+        }
+
         return new static($name, $quality, $sellIn);
     }
 
