@@ -18,10 +18,24 @@ $stmt = $db->prepare('SELECT * FROM items ORDER BY sell_in ASC;');
 $stmt->execute();
 
 $items = array_reduce($stmt->fetchAll(), function ($carry, $item) {
-    $class = 'App\\' . $item['name'];
-
-    return array_merge($carry, [new $class($item['quality'], $item['sell_in'])]);
+    return array_merge($carry, [new $item['name']($item['quality'], $item['sell_in'])]);
 }, []);
+
+if (isset($_POST['tick'])) {
+    $db->beginTransaction();
+    $db->exec('DELETE FROM items;');
+    $stmt = $db->prepare(
+        'INSERT INTO items (name, quality, sell_in)
+        VALUES (:name, :quality, :sell_in);'
+    );
+
+    foreach ($items as $item) {
+        $item->tick();
+        $stmt->execute(['name' => get_class($item), 'quality' => $item->getQuality(), 'sell_in' => $item->getSellIn()]);
+    }
+
+    $db->commit();
+}
 
 ?>
 
@@ -42,28 +56,33 @@ $items = array_reduce($stmt->fetchAll(), function ($carry, $item) {
             <section>
                 <h2>Items in stock</h2>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quality</th>
-                            <th>Sell in <em>x</em> days</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($items as $item) : ?>
+                <?php if (empty($items)) : ?>
+                    <p>There are no items in stock :(</p>
+                <?php else : ?>
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?php echo $item->getName(); ?></td>
-                                <td><?php echo $item->getQuality(); ?></td>
-                                <td><?php echo $item->getSellIn(); ?></td>
+                                <th>Name</th>
+                                <th>Quality</th>
+                                <th>Sell in <em>x</em> days</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($items as $item) : ?>
+                                <tr>
+                                    <td><?php echo $item->getName(); ?></td>
+                                    <td><?php echo $item->getQuality(); ?></td>
+                                    <td><?php echo $item->getSellIn(); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
-                <form action="index.php" method="POST">
-                    <button>Tick</button>
-                </form>
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="tick">
+                        <button>Tick</button>
+                    </form>
+                <?php endif; ?>
             </section>
 
             <aside>
@@ -72,10 +91,10 @@ $items = array_reduce($stmt->fetchAll(), function ($carry, $item) {
                 <form action="index.php" method="POST">
                     <label for="name">Name</label>
                     <select name="name" id="name">
-                        <option value="AgedBrie">Aged Brie</option>
-                        <option value="BackstagePasses">Backstage Passes</option>
-                        <option value="Normal">Normal</option>
-                        <option value="SulfurasHandOfRagnaros">Sulfuras, Hand of Ragnaros</option>
+                        <option value="App\AgedBrie">Aged Brie</option>
+                        <option value="App\BackstagePasses">Backstage Passes</option>
+                        <option value="App\Normal">Normal</option>
+                        <option value="App\SulfurasHandOfRagnaros">Sulfuras, Hand of Ragnaros</option>
                     </select>
 
                     <label for="quality">Quality</label>
