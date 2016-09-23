@@ -4,7 +4,7 @@ namespace App;
 
 class Normal implements Item
 {
-    private $name = 'normal';
+    private $name = 'Normal';
     private $quality;
     private $sellIn;
 
