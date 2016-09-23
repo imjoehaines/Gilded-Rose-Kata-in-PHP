@@ -4,9 +4,9 @@ namespace App;
 
 class AgedBrie implements Item
 {
-    public $name = 'Aged Brie';
-    public $quality;
-    public $sellIn;
+    private $name = 'Aged Brie';
+    private $quality;
+    private $sellIn;
 
     public function __construct(int $quality, int $sellIn)
     {
@@ -25,5 +25,20 @@ class AgedBrie implements Item
         if ($this->sellIn < 0 && $this->quality < 50) {
             $this->quality = $this->quality + 1;
         }
+    }
+
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    public function getQuality() : int
+    {
+        return $this->quality;
+    }
+
+    public function getSellIn() : int
+    {
+        return $this->sellIn;
     }
 }

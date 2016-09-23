@@ -14,8 +14,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(9, $item->quality);
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(9, $item->getQuality());
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesNormalItemsOnTheSellDate()
@@ -24,8 +24,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(8, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(8, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItUpdatesNormalItemsAfterTheSellDate()
@@ -34,8 +34,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(8, $item->quality);
-        $this->assertSame(-6, $item->sellIn);
+        $this->assertSame(8, $item->getQuality());
+        $this->assertSame(-6, $item->getSellIn());
     }
 
     public function testItUpdatesNormalItemsWithAQualityOf0()
@@ -44,8 +44,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(0, $item->quality);
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(0, $item->getQuality());
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsBeforeTheSellDate()
@@ -54,8 +54,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(11, $item->quality);
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(11, $item->getQuality());
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsBeforeTheSellDateWithMaximumQuality()
@@ -64,8 +64,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsOnTheSellDate()
@@ -74,8 +74,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(12, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(12, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsOnTheSellDateNearMaximumQuality()
@@ -84,8 +84,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsOnTheSellDateWithMaximumQuality()
@@ -94,8 +94,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItUpdatesBrieItemsAfterTheSellDate()
@@ -104,8 +104,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(12, $item->quality);
-        $this->assertSame(-11, $item->sellIn);
+        $this->assertSame(12, $item->getQuality());
+        $this->assertSame(-11, $item->getSellIn());
     }
 
     public function testItUpdatesBriemItemsAfterTheSellDateWithMaximumQuality()
@@ -114,8 +114,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(-11, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(-11, $item->getSellIn());
     }
 
     public function testItUpdatesSulfurasItemsBeforeTheSellDate()
@@ -124,8 +124,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(80, $item->quality);
-        $this->assertSame(5, $item->sellIn);
+        $this->assertSame(80, $item->getQuality());
+        $this->assertSame(5, $item->getSellIn());
     }
 
     public function testItUpdatesSulfurasItemsOnTheSellDate()
@@ -134,8 +134,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(80, $item->quality);
-        $this->assertSame(0, $item->sellIn);
+        $this->assertSame(80, $item->getQuality());
+        $this->assertSame(0, $item->getSellIn());
     }
 
     public function testItUpdatesSulfurasItemsAfterTheSellDate()
@@ -144,15 +144,15 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(80, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(80, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItAlwaysReportsSulfurasQualityCorrectly()
     {
         $item = GildedRose::of('Sulfuras, Hand of Ragnaros', 10, 5);
 
-        $this->assertSame(80, $item->quality);
+        $this->assertSame(80, $item->getQuality());
     }
 
     public function testItUpdatesBackstagePassItemsLongBeforeTheSellDate()
@@ -161,8 +161,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(11, $item->quality);
-        $this->assertSame(10, $item->sellIn);
+        $this->assertSame(11, $item->getQuality());
+        $this->assertSame(10, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsCloseToTheSellDate()
@@ -171,8 +171,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(12, $item->quality);
-        $this->assertSame(9, $item->sellIn);
+        $this->assertSame(12, $item->getQuality());
+        $this->assertSame(9, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsCloseToTheSellDataAtMaxQuality()
@@ -181,8 +181,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(9, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(9, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsVeryCloseToTheSellDate()
@@ -191,8 +191,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(13, $item->quality); // goes up by 3
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(13, $item->getQuality()); // goes up by 3
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsVeryCloseToTheSellDateAtMaxQuality()
@@ -201,8 +201,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(4, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(4, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsWithOneDayLeftToSell()
@@ -211,8 +211,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(13, $item->quality);
-        $this->assertSame(0, $item->sellIn);
+        $this->assertSame(13, $item->getQuality());
+        $this->assertSame(0, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsWithOneDayLeftToSellAtMaxQuality()
@@ -221,8 +221,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(50, $item->quality);
-        $this->assertSame(0, $item->sellIn);
+        $this->assertSame(50, $item->getQuality());
+        $this->assertSame(0, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsOnTheSellDate()
@@ -231,8 +231,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(0, $item->quality);
-        $this->assertSame(-1, $item->sellIn);
+        $this->assertSame(0, $item->getQuality());
+        $this->assertSame(-1, $item->getSellIn());
     }
 
     public function testItUpdatesBackstagePassItemsAfterTheSellDate()
@@ -241,8 +241,8 @@ class GildedRoseTest extends TestCase
 
         $item->tick();
 
-        $this->assertSame(0, $item->quality);
-        $this->assertSame(-2, $item->sellIn);
+        $this->assertSame(0, $item->getQuality());
+        $this->assertSame(-2, $item->getSellIn());
     }
 
     // public function testItUpdatesConjuredItemsBeforeTheSellDate()
@@ -251,8 +251,8 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(8, $item->quality);
-    //     $this->assertSame(9, $item->sellIn);
+    //     $this->assertSame(8, $item->getQuality());
+    //     $this->assertSame(9, $item->getSellIn());
     // }
 
     // public function testItUpdatesConjuredItemsAtZeroQuality()
@@ -261,8 +261,8 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(0, $item->quality);
-    //     $this->assertSame(9, $item->sellIn);
+    //     $this->assertSame(0, $item->getQuality());
+    //     $this->assertSame(9, $item->getSellIn());
     // }
 
     // public function testItUpdatesConjuredItemsOnTheSellDate()
@@ -271,8 +271,8 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(6, $item->quality);
-    //     $this->assertSame(-1, $item->sellIn);
+    //     $this->assertSame(6, $item->getQuality());
+    //     $this->assertSame(-1, $item->getSellIn());
     // }
 
     // public function testItUpdatesConjuredItemsOnTheSellDateAt0Quality()
@@ -281,8 +281,8 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(0, $item->quality);
-    //     $this->assertSame(-1, $item->sellIn);
+    //     $this->assertSame(0, $item->getQuality());
+    //     $this->assertSame(-1, $item->getSellIn());
     // }
 
     // public function testItUpdatesConjuredItemsAfterTheSellDate()
@@ -291,8 +291,8 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(6, $item->quality);
-    //     $this->assertSame(-11, $item->sellIn);
+    //     $this->assertSame(6, $item->getQuality());
+    //     $this->assertSame(-11, $item->getSellIn());
     // }
 
     // public function testItUpdatesConjuredItemsAfterTheSellDateAtZeroQuality()
@@ -301,7 +301,7 @@ class GildedRoseTest extends TestCase
 
     //     $item->tick();
 
-    //     $this->assertSame(0, $item->quality);
-    //     $this->assertSame(-11, $item->sellIn);
+    //     $this->assertSame(0, $item->getQuality());
+    //     $this->assertSame(-11, $item->getSellIn());
     // }
 }

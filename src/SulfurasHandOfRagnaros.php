@@ -4,9 +4,9 @@ namespace App;
 
 class SulfurasHandOfRagnaros implements Item
 {
-    public $name = 'Sulfuras, Hand of Ragnaros';
-    public $quality = 80;
-    public $sellIn;
+    private $name = 'Sulfuras, Hand of Ragnaros';
+    private $quality = 80;
+    private $sellIn;
 
     public function __construct(int $quality, int $sellIn)
     {
@@ -16,5 +16,20 @@ class SulfurasHandOfRagnaros implements Item
     public function tick()
     {
         // this page intentially left blank
+    }
+
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    public function getQuality() : int
+    {
+        return $this->quality;
+    }
+
+    public function getSellIn() : int
+    {
+        return $this->sellIn;
     }
 }

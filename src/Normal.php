@@ -4,9 +4,9 @@ namespace App;
 
 class Normal implements Item
 {
-    public $name = 'normal';
-    public $quality;
-    public $sellIn;
+    private $name = 'normal';
+    private $quality;
+    private $sellIn;
 
     public function __construct(int $quality, int $sellIn)
     {
@@ -25,5 +25,20 @@ class Normal implements Item
         if ($this->sellIn < 0 && $this->quality > 0) {
             $this->quality = $this->quality - 1;
         }
+    }
+
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    public function getQuality() : int
+    {
+        return $this->quality;
+    }
+
+    public function getSellIn() : int
+    {
+        return $this->sellIn;
     }
 }
