@@ -18,7 +18,7 @@ $stmt = $db->prepare('SELECT * FROM items ORDER BY sell_in ASC;');
 $stmt->execute();
 
 $items = array_reduce($stmt->fetchAll(), function ($carry, $item) {
-    return array_merge($carry, [new $item['name']($item['quality'], $item['sell_in'])]);
+    return array_merge($carry, [App\GildedRose::of($item['name'], $item['quality'], $item['sell_in'])]);
 }, []);
 
 if (isset($_POST['tick'])) {
@@ -31,7 +31,7 @@ if (isset($_POST['tick'])) {
 
     foreach ($items as $item) {
         $item->tick();
-        $stmt->execute(['name' => get_class($item), 'quality' => $item->getQuality(), 'sell_in' => $item->getSellIn()]);
+        $stmt->execute(['name' => $item->getName(), 'quality' => $item->getQuality(), 'sell_in' => $item->getSellIn()]);
     }
 
     $db->commit();
@@ -91,10 +91,10 @@ if (isset($_POST['tick'])) {
                 <form action="index.php" method="POST">
                     <label for="name">Name</label>
                     <select name="name" id="name">
-                        <option value="App\AgedBrie">Aged Brie</option>
-                        <option value="App\BackstagePasses">Backstage Passes</option>
-                        <option value="App\Normal">Normal</option>
-                        <option value="App\SulfurasHandOfRagnaros">Sulfuras, Hand of Ragnaros</option>
+                        <option value="Aged Brie">Aged Brie</option>
+                        <option value="Backstage Passes">Backstage Passes</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Sulfuras, Hand of Ragnaros">Sulfuras, Hand of Ragnaros</option>
                     </select>
 
                     <label for="quality">Quality</label>
